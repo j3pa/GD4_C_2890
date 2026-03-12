@@ -4,13 +4,25 @@ import React, { useState, useEffect } from 'react';
 import GameBoard from '../components/GameBoard';
 import ScoreBoard from '../components/ScoreBoard';
 import { GiCardJoker } from 'react-icons/gi';
-import { FaAppleAlt, FaLemon, FaHeart, FaStar } from 'react-icons/fa';
+import { FaAppleAlt, FaLemon, FaHeart, FaStar, FaFire, FaMoon, FaBell, } from 'react-icons/fa';
+import { IoDiamond } from "react-icons/io5";
+import { FaBoltLightning } from "react-icons/fa6";
 
 const ICONS = [
   { icon: FaAppleAlt, color: '#e44444' },
   { icon: FaLemon, color: '#eab308' },
   { icon: FaHeart, color: '#ec4899' },
-  { icon: FaStar, color: '#f97316' },
+  { icon: FaStar, color: '#ffea00' },
+  { icon: FaFire, color: '#ff8103' },
+  { icon: FaMoon, color: '#60a5fa' },
+  { icon: IoDiamond, color: '#4747e1' },
+  { icon: FaBoltLightning, color: '#a78bfa' },
+];
+
+const DIFFICULTIES = [
+  { label: 'Easy', value: 'easy', pairs: 4 },
+  { label: 'Medium', value: 'medium', pairs: 6 },
+  { label: 'Hard', value: 'hard', pairs: 8 },
 ];
 
 const shuffleArray = (array) => {
@@ -22,8 +34,9 @@ const shuffleArray = (array) => {
   return shuffled;
 };
 
-const createCards = () => {
-  const paired = ICONS.flatMap((item, index) => [
+const createCards = (pairsCount) => {
+  const selectedIcons = ICONS.slice(0, pairsCount);
+  const paired = selectedIcons.flatMap((item, index) => [
     { id: index * 2, icon: item.icon, color: item.color, pairId: index },
     { id: index * 2 + 1, icon: item.icon, color: item.color, pairId: index },
   ]);
