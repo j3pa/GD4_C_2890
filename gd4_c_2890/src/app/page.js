@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import GameBoard from '../components/GameBoard';
 import ScoreBoard from '../components/ScoreBoard';
 import { GiCardJoker } from 'react-icons/gi';
-import { FaAppleAlt, FaLemon, FaHeart, FaStar, FaFire, FaMoon, FaBell, } from 'react-icons/fa';
+import { FaAppleAlt, FaLemon, FaHeart, FaStar, FaFire, FaMoon} from 'react-icons/fa';
 import { IoDiamond } from "react-icons/io5";
 import { FaBoltLightning } from "react-icons/fa6";
 
@@ -19,11 +19,6 @@ const ICONS = [
   { icon: FaBoltLightning, color: '#a78bfa' },
 ];
 
-const DIFFICULTIES = [
-  { label: 'Easy', value: 'easy', pairs: 4 },
-  { label: 'Medium', value: 'medium', pairs: 6 },
-  { label: 'Hard', value: 'hard', pairs: 8 },
-];
 
 const shuffleArray = (array) => {
   const shuffled = [...array];
