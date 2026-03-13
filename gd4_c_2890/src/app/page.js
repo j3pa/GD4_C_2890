@@ -19,6 +19,7 @@ const ICONS = [
   { icon: FaBoltLightning,color: '#a78bfa' },
 ];
 
+
 const DIFFICULTY_CONFIG = {
   easy:   { pairs: 4, label: 'Easy (4)',   icon: '😊' },
   medium: { pairs: 6, label: 'Medium (6)', icon: '😐' },
@@ -126,8 +127,8 @@ export default function Home() {
 
   const totalPairs = DIFFICULTY_CONFIG[difficulty].pairs;
 
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 p-4">
+  return (  
+    <div className="min-h-screen flex flex-col items-center justify-center ">
       <h1 className="text-4xl font-bold mb-6 text-white drop-shadow-lg flex items-center gap-3">
         <GiCardJoker className="text-yellow-300 text-4xl" />
         Memory Card
@@ -159,7 +160,6 @@ export default function Home() {
         onReset={() => resetGame()}
         isWon={isWon}
       />
-
 
       <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl shadow-2xl">
         <GameBoard

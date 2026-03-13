@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaQuestion } from "react-icons/fa";
 
 function Card({ card, isFlipped, isMatched, onFlip }) {
+  const [isHovered, setIsHovered] = useState(false);
+
   const handleClick = () => {
     if (!isFlipped && !isMatched) {
       onFlip(card.id);
@@ -11,73 +13,93 @@ function Card({ card, isFlipped, isMatched, onFlip }) {
   const isOpen = isFlipped || isMatched;
   const IconComponent = card.icon;
 
+  const getBackGradient = () => {
+    if (isHovered && !isOpen) {
+      return 'linear-gradient(135deg, #f0abfc, #818cf8)'; // pink ke biru
+    }
+    return 'linear-gradient(135deg, #a855f7, #6366f1)';
+  };
+
   return (
-    // Wrapper: perspective agar efek 3D terlihat
     <div
       onClick={handleClick}
+// buat deteksi mouse hover 
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       className="w-20 h-20 cursor-pointer select-none"
       style={{ perspective: '600px' }}
     >
-      {/* Inner: yang dirotasi saat flip */}
       <div
         style={{
           width: '100%',
           height: '100%',
           position: 'relative',
           transformStyle: 'preserve-3d',
-          transition: 'transform 0.5s ease',
-          // muter 180 derajat saat flipped/matched
-          transform: isOpen ? 'rotateY(180deg)' : 'rotateY(0deg)',
+          transform: isOpen
+            ? 'rotateY(180deg)'
+            : isHovered
+              ? 'rotateY(0deg) scale(1.1) translateY(-4px)'
+              : 'rotateY(0deg) scale(1)',
+          transition: 'transform 0.5s ease, box-shadow 0.3s ease',
+          borderRadius: '12px',
+
+          boxShadow: isHovered && !isOpen
+            ? '0 0 20px rgba(192, 132, 252, 0.8), 0 8px 20px rgba(0,0,0,0.3)'
+            : '0 4px 12px rgba(0,0,0,0.3)',
         }}
       >
 
-        {/* SISI BELAKANG: tampil saat belum dibalik (?) */}
         <div
-          className="absolute inset-0 flex items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 shadow-lg hover:shadow-xl"
           style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '12px',
             backfaceVisibility: 'hidden',
-            // Sisi belakang default menghadap depan
+
+            background: getBackGradient(),
+            transition: 'background 0.3s ease',
           }}
         >
-          <FaQuestion className="text-white/60 text-xl" />
+          <FaQuestion
+            style={{
+              color: isHovered ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.6)',
+              fontSize: '1.5rem',
+              transition: 'color 0.3s ease',
+            }}
+          />
         </div>
 
-        {/* SISI DEPAN: tampil saat kartu terbuka (icon) */}
+
         <div
-          className={`absolute inset-0 flex items-center justify-center rounded-xl shadow-md
-            ${isMatched
-              ? 'bg-green-100 ring-2 ring-green-400'  // matched: hijau
-              : 'bg-white'                              // flipped: putih
-            }`}
           style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '12px',
             backfaceVisibility: 'hidden',
-            // Sisi depan awalnya menghadap belakang, perlu di-rotate 180deg
             transform: 'rotateY(180deg)',
+            background: isMatched ? '#dcfce7' : '#ffffff',
+            border: isMatched ? '2px solid #4ade80' : 'none',
           }}
         >
           <IconComponent
             style={{
               color: card.color,
               fontSize: '2rem',
-              // Animasi pop saat kartu terbuka
-              animation: isOpen ? 'popIn 0.3s ease 0.25s both' : 'none',
+              opacity: isOpen ? 1 : 0,
+              transform: isOpen ? 'scale(1)' : 'scale(0.5)',
+            transition: 'opacity 0.2s ease, transform 0.5s ease',
             }}
           />
         </div>
-
       </div>
     </div>
   );
 }
 
 export default Card;
-
-/*
-  Tambahkan animasi ini di globals.css:
-
-  @keyframes popIn {
-    0%   { transform: scale(0.5); opacity: 0; }
-    70%  { transform: scale(1.2); }
-    100% { transform: scale(1);   opacity: 1; }
-  }
-*/
