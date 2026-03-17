@@ -18,7 +18,7 @@ function GameBoard({ cards, flippedCards, matchedCards, onFlip, difficulty }) {
   const gridClass = GRID_COLS_CLASS[cols] || 'grid-cols-4';
 
   return (
-    <div className={`grid ${gridClass} gap-4 justify-items-center`}>
+    <div className={`grid ${gridClass} gap-5 justify-items-center`}>
       {cards.map((card) => (
         <Card
           key={card.id}

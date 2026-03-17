@@ -44,6 +44,22 @@ body {
   100% { transform: scale(1);   opacity: 1; }
 }
 
+/* Animasi melayang naik turun */
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px); /* Jarak naik ke atas */
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: floating 3s ease-in-out infinite;
+}
 .stars-container {
   position: fixed;
   top: 0;

@@ -148,9 +148,11 @@ export default function Home() {
   return (  
     <div className="min-h-screen flex flex-col items-center justify-center p-4">
       
-      <h1 className="text-4xl font-bold mb-6 text-white drop-shadow-lg flex items-center gap-3">
-        <GiCardJoker className="text-yellow-300 text-4xl" />
-        Memory Card
+      <h1 className="text-6xl md:text-7xl font-black mb-8 flex items-center gap-4 tracking-tighter animate-float">
+        <GiCardJoker className="text-yellow-300 drop-shadow-[0_0_10px_rgba(253,224,71,0.8)]" />
+        <span className="bg-gradient-to-r from-[#fde68a] via-[#f472b6] to-[#c084fc] bg-clip-text text-transparent drop-shadow-sm">
+          Memory Card
+        </span>
       </h1>
 
       
